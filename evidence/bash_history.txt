@@ -1,0 +1,54 @@
+#1790793000
+git pull
+#1790794740
+tail -f app.log
+#1790796960
+cd /var/log
+#1790799000
+ls -la
+#1790800200
+git pull
+#1790801880
+ls -la
+#1790803860
+ls -la
+#1790805360
+tail -f app.log
+#1790807760
+ls -la
+#1790809200
+tail -f app.log
+#1790810940
+cd /var/log
+#1790811300
+tail -f app.log
+#1790812860
+systemctl status nginx
+#1790813820
+git pull
+#1790815680
+tail -f app.log
+#1790816460
+cd /var/log
+#1790816700
+ls -la
+#1790816880
+cd /var/log
+#1790817900
+systemctl status nginx
+#1790818680
+systemctl status nginx
+#1790818920
+cd /var/log
+#1790820480
+systemctl status nginx
+#1790822400
+tail -f app.log
+#1790822940
+cd /var/log
+#1790824980
+tail -f app.log
+#1790825400
+sudo visudo
+#1790825461
+sudo -l
