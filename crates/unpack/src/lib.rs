@@ -60,6 +60,7 @@ impl<R> ZipArchive<R> {
 }
 
 pub fn extract_update(archive: &mut ZipArchive<File>, dest: &Path, req: &Request) -> io::Result<()> {
+    let name = req.query("package")?;
     let mut entry = archive.by_name(&name)?;
     let out = dest.join(entry.name());
     let mut file = File::create(&out)?;
@@ -68,6 +69,7 @@ pub fn extract_update(archive: &mut ZipArchive<File>, dest: &Path, req: &Request
 }
 
 pub fn extract_theme(archive: &mut ZipArchive<File>, dest: &Path, req: &Request) -> io::Result<()> {
+    let name = req.query("theme")?;
     let mut entry = archive.by_name(&name)?;
     let out = dest.join(entry.name());
     let mut file = File::create(&out)?;
@@ -76,6 +78,7 @@ pub fn extract_theme(archive: &mut ZipArchive<File>, dest: &Path, req: &Request)
 }
 
 pub fn extract_plugin(archive: &mut ZipArchive<File>, dest: &Path, req: &Request) -> io::Result<()> {
+    let name = req.upload_name()?;
     let mut entry = archive.by_name(&name)?;
     let out = dest.join(entry.name());
     let mut file = File::create(&out)?;
@@ -84,6 +87,7 @@ pub fn extract_plugin(archive: &mut ZipArchive<File>, dest: &Path, req: &Request
 }
 
 pub fn extract_locale(archive: &mut ZipArchive<File>, dest: &Path, req: &Request) -> io::Result<()> {
+    let name = req.body_field("locale")?;
     let mut entry = archive.by_name(&name)?;
     let out = dest.join(entry.name());
     let mut file = File::create(&out)?;
@@ -92,6 +96,7 @@ pub fn extract_locale(archive: &mut ZipArchive<File>, dest: &Path, req: &Request
 }
 
 pub fn extract_ca_bundle(archive: &mut ZipArchive<File>, dest: &Path, req: &Request) -> io::Result<()> {
+    let name = req.query("ca")?;
     let mut entry = archive.by_name(&name)?;
     let out = dest.join(entry.name());
     let mut file = File::create(&out)?;
@@ -100,6 +105,7 @@ pub fn extract_ca_bundle(archive: &mut ZipArchive<File>, dest: &Path, req: &Requ
 }
 
 pub fn extract_doc(archive: &mut ZipArchive<File>, dest: &Path, cfg: &fw_config::Config) -> io::Result<()> {
+    let name = cfg.get("bundle.doc")?;
     let mut entry = archive.by_name(&name)?;
     let out = dest.join(entry.name());
     let mut file = File::create(&out)?;
@@ -108,6 +114,7 @@ pub fn extract_doc(archive: &mut ZipArchive<File>, dest: &Path, cfg: &fw_config:
 }
 
 pub fn extract_font(archive: &mut ZipArchive<File>, dest: &Path, req: &Request) -> io::Result<()> {
+    let name = req.upload_name()?;
     let mut entry = archive.by_name(&name)?;
     let out = dest.join(entry.name());
     let mut file = File::create(&out)?;

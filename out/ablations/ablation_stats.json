@@ -1,0 +1,56 @@
+{
+  "ablations": [
+    {
+      "variant": "full",
+      "cross_crate": true,
+      "sanitizers": true,
+      "files": 10,
+      "rust_lines": 740,
+      "functions": 91,
+      "parse_sec": 0.0099,
+      "taint_sec": 0.0067,
+      "total_sec": 0.0187,
+      "findings": 50,
+      "cache_hits": 0
+    },
+    {
+      "variant": "no_cross_crate",
+      "cross_crate": false,
+      "sanitizers": true,
+      "files": 10,
+      "rust_lines": 740,
+      "functions": 91,
+      "parse_sec": 0.0095,
+      "taint_sec": 0.0038,
+      "total_sec": 0.0153,
+      "findings": 46,
+      "cache_hits": 0
+    },
+    {
+      "variant": "no_sanitizer",
+      "cross_crate": true,
+      "sanitizers": false,
+      "files": 10,
+      "rust_lines": 740,
+      "functions": 91,
+      "parse_sec": 0.0087,
+      "taint_sec": 0.0038,
+      "total_sec": 0.0146,
+      "findings": 53,
+      "cache_hits": 0
+    },
+    {
+      "variant": "no_cross_no_sanitizer",
+      "cross_crate": false,
+      "sanitizers": false,
+      "files": 10,
+      "rust_lines": 740,
+      "functions": 91,
+      "parse_sec": 0.0089,
+      "taint_sec": 0.0038,
+      "total_sec": 0.0143,
+      "findings": 47,
+      "cache_hits": 0
+    }
+  ]
+}

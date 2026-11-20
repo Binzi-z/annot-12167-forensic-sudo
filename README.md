@@ -87,6 +87,39 @@ python eval.py o.json
 python -m pytest tests -q
 ```
 
+## IR 污点分析原型（analyzer/，本仓库的正式解法）
+
+基线只按 API 名字报；`analyzer/` 是符合题面约束的原型——**不用任何现成规则集**，
+只用 tree-sitter-rust 解析，先降自研 IR（`tast/ir.py`），再做名称解析
+（`tast/resolve.py`）与显式污点数据流（`tast/taint.py`），最后产出 SARIF
+（`tast/report.py`）。source / sink / sanitizer 全部读 `config/sanitizers.json`，
+配置即规则，也直接充当消融开关。
+
+```powershell
+# 完整实验协议：四组配置 + 20 万行性能 + 增量一致性，产物在 out/
+python -I analyzer/experiment.py --root . --out out
+
+# 或分步
+python -I analyzer/run.py --root . full --out out                  # 核心语料
+python -I analyzer/run.py --root . full --include-filler --out s   # 20 万行压测
+python -I analyzer/run.py --root . incremental --changed crates/ingest/src/lib.rs
+python -I analyzer/run.py --root . ablations --out out/ablations
+python -I eval.py out/findings.sarif
+python -I -m pytest tests analyzer/tests -q
+```
+
+实测结果（详见 `docs/experiment-report.md`）：
+
+| 配置 | 召回 | 误报率 | 说明 |
+|---|---:|---:|---|
+| 完整分析 | **100.0%** | **0.0%** | 50/50 命中，0 误报 |
+| 去跨 crate 传播 | 92.0% | 0.0% | 丢 4 条 cross_crate，不增误报 |
+| 去净化识别 | 100.0% | 5.7% | 召回不变，新增 3 条净化点误报 |
+| 两者都去 | 92.0% | 2.1% | 方向自洽 |
+
+性能：204,060 行全量约 21 s（预算 180 s）；增量改 1 文件约 0.3 s（预算 15 s），
+469 个文件命中 IR 缓存，增量与全量 finding 逐条一致，重复运行字节级确定。
+
 ## 评测口径（eval.py）
 
 - 静态类标注（只有 file/line）：文件相同且行号差 ≤2。

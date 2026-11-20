@@ -516,6 +516,7 @@ for fn, key, kind in EXTRACT_CASES:
                " cfg: &fw_config::Config) -> io::Result<()> {" % fn)
     line = unpack.case([
         sig,
+        src_line,
         "    let mut entry = archive.by_name(&name)?;",
         "    let out = dest.join(entry.name());",
         "    let mut file = File::create(&out)?;",

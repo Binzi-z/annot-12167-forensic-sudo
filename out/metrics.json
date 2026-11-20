@@ -1,0 +1,86 @@
+{
+  "variants": [
+    {
+      "labels": 50,
+      "findings": 50,
+      "TP": 50,
+      "FP": 0,
+      "FN": 0,
+      "recall": 1.0,
+      "precision": 1.0,
+      "false_positive_rate": 0.0,
+      "name": "full",
+      "description": "完整分析（跨crate传播 + 净化识别）",
+      "cross_crate": true,
+      "sanitizers": true,
+      "elapsed_sec": 0.0153
+    },
+    {
+      "labels": 50,
+      "findings": 46,
+      "TP": 46,
+      "FP": 0,
+      "FN": 4,
+      "recall": 0.92,
+      "precision": 1.0,
+      "false_positive_rate": 0.0,
+      "name": "no_cross_crate",
+      "description": "消融：去掉跨 crate 传播",
+      "cross_crate": false,
+      "sanitizers": true,
+      "elapsed_sec": 0.0147
+    },
+    {
+      "labels": 50,
+      "findings": 53,
+      "TP": 50,
+      "FP": 3,
+      "FN": 0,
+      "recall": 1.0,
+      "precision": 0.9434,
+      "false_positive_rate": 0.0566,
+      "name": "no_sanitizer",
+      "description": "消融：去掉净化识别",
+      "cross_crate": true,
+      "sanitizers": false,
+      "elapsed_sec": 0.0146
+    },
+    {
+      "labels": 50,
+      "findings": 47,
+      "TP": 46,
+      "FP": 1,
+      "FN": 4,
+      "recall": 0.92,
+      "precision": 0.9787,
+      "false_positive_rate": 0.0213,
+      "name": "no_cross_no_sanitizer",
+      "description": "消融：两者都去掉",
+      "cross_crate": false,
+      "sanitizers": false,
+      "elapsed_sec": 0.0151
+    }
+  ],
+  "performance": {
+    "full_200k": {
+      "files": 470,
+      "rust_lines": 204060,
+      "functions": 16191,
+      "elapsed_sec": 23.612,
+      "budget_sec": 180,
+      "within_budget": true,
+      "findings": 50
+    },
+    "incremental": {
+      "changed_files": [
+        "crates/ingest/src/lib.rs"
+      ],
+      "elapsed_sec": 0.2421,
+      "budget_sec": 15,
+      "within_budget": true,
+      "cache_hits": 469,
+      "findings": 50,
+      "identical_to_full": true
+    }
+  }
+}
