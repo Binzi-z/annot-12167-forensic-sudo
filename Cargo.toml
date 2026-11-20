@@ -1,0 +1,13 @@
+[workspace]
+members = [
+    "crates/common",
+    "crates/rpc",
+    "crates/config",
+    "crates/ingest",
+    "crates/unpack",
+    "crates/serve",
+    "crates/render",
+    "crates/app",
+]
+resolver = "2"
+

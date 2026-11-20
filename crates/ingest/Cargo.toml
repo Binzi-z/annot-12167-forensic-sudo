@@ -1,0 +1,10 @@
+[package]
+name = "fw-ingest"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+fw-common = { path = "../common" }
+fw-config = { path = "../config" }
+fw-rpc = { path = "../rpc" }
+

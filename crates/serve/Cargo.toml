@@ -1,0 +1,9 @@
+[package]
+name = "fw-serve"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+fw-common = { path = "../common" }
+fw-rpc = { path = "../rpc" }
+

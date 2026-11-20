@@ -1,0 +1,43 @@
+{
+  "note": "可配置的 source / sanitizer / 静态目录 / 模板白名单。分析器读它决定哪些调用算净化；增删条目应该能改变召回与误报，用来做消融。",
+  "sources": {
+    "http_query": [
+      "Request::query"
+    ],
+    "http_body": [
+      "Request::body_field"
+    ],
+    "upload_filename": [
+      "Request::upload_name"
+    ],
+    "config_file": [
+      "Config::get"
+    ]
+  },
+  "sanitizers": [
+    {
+      "name": "canonicalize_prefix_ok",
+      "kind": "canonicalize_prefix",
+      "note": "canonicalize 后必须仍位于 root 之下"
+    },
+    {
+      "name": "sanitize_component",
+      "kind": "single_component"
+    },
+    {
+      "name": "enclosed_name",
+      "kind": "zip_enclosed_name"
+    }
+  ],
+  "static_dirs": [
+    "public"
+  ],
+  "template_dirs": [
+    "templates"
+  ],
+  "safe_templates": [
+    "base.hbs",
+    "mail.hbs",
+    "report.hbs"
+  ]
+}
